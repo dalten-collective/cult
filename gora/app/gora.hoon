@@ -122,14 +122,14 @@
 =*  state  -
 ::  CULT: added for cult                                ::  cult
 ::
-%-  (agent:cult ~ ~)
 ::
+%-  agent:dbug
 %-  %+  agent:gossip
       [2 %anybody %anybody]
     %+  ~(put by *(map mark $-(* vase)))
       %gora
     |=(n=* !>((grab-hint n)))
-%-  agent:dbug
+%-  (agent:cult ~ ~)
 ::
 ^-  agent:gall
 =<
