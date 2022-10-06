@@ -123,7 +123,6 @@
 ::  CULT: added for cult                                ::  cult
 ::
 ::
-%-  agent:dbug
 %-  %+  agent:gossip
       [2 %anybody %anybody]
     %+  ~(put by *(map mark $-(* vase)))
@@ -817,7 +816,9 @@
   |=  =path
   ^-  (unit (unit cage))
   ?+    path  (on-peek:def path)
-       [%y %slam ~]
+      [%x %dbug ~]
+    ``noun+!>(gora=state)
+      [%y %slam ~]
     =-  ``noun+!>(`(list [@t @t @p])`-)
     %-  ~(rep by pita)
     |=  [[@uv g=gora] l=(list [@t @t @p])]

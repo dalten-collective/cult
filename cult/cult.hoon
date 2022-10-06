@@ -78,58 +78,66 @@
     |_  dish=bowl:gall
     +*  this  .
         ho    ~(. helps dish cargo)
-        eg    ~(. inner dish)
+        og    ~(. inner dish)
         now   (scot %da now.dish)
         our   (scot %p our.dish)
     ::
     ++  on-peek
-      ~&  >  %cult-peek
       |=  =path
+      ^-  (unit (unit cage))
+      ~>  %bout.[0 '%cult +on-peek']
       ?:  =(/x/~/cult/state path)
         ``noun+!>(cargo)
-      (on-peek:eg path)
+      (on-peek:og path)
     ++  on-arvo
-      ~&  >  %cult-arvo
-      on-arvo:eg
+      |=  [wire sign-arvo]
+      ^-  (quip card _this)
+      ~>  %bout.[0 '%cult +on-arvo']
+      =^  cards  inner  (on-arvo:og +<)
+      [cards this]
     ++  on-fail
-      ~&  >  %cult-fail
-      on-fail:eg
+      |=  [term tang]
+      ^-  (quip card _this)
+      =^  cards  inner  (on-fail:og +<)
+      [cards this]
     ++  on-leave
-      ~&  >  %cult-leave
-      on-leave:eg
+      |=  path
+      ^-  (quip card _this)
+      =^  cards  inner  (on-leave:og +<)
+      [cards this]
+    ::
     ++  on-watch
-      ~&  >  %cult-watch
-      on-watch:eg
+      |=  path
+      ^-  (quip card _this)
+      =^  cards  inner  (on-watch:og +<)
+      [cards this]
+    ::
     ++  on-init
-      ~&  >>>  %cult-init
+      ~>  %bout.[0 '%cult +on-init']
       ^-  (quip card _this)
       =.  clique  (~(uni by clique) club)
       =.  ritual  (~(uni by ritual) babe)
-      =^  cards   inner  on-init:eg
-      ~&  >  cargo
+      =^  cards   inner  on-init:og
       [[hear:ho cards] this]
-    ++  on-save  ~_('here' !>([[%cult cargo] on-save:eg]))
+    ++  on-save  !>([[%cult cargo] on-save:og])
     ++  on-load
       |=  ole=vase
+      ~>  %bout.[0 '%cult +on-load']
       ^-  (quip card _this)
       ?.  ?=([[%cult *] *] q.ole)
-        ~&  >>>  "bad out"
-        ~&  >>>  q.ole
         =.  clique  club
         =.  ritual  babe
-        =^  cards   inner  (on-load:eg ole)
+        =^  cards   inner  (on-load:og ole)
         [[hear:ho cards] this]
-      ~&  >>  "good out"
       =+  !<([[%cult old=cargo-0] oil=vase] ole)
       =.  cargo   old
       =.  ritual  babe
-      =^  cards   inner  (on-load:eg oil)
-      ~&  >>>  cargo
+      =^  cards   inner  (on-load:og oil)
       [[hear:ho cards] this]
     ++  on-agent
       |=  [wir=wire sig=sign:agent:gall]
       ?.  ?=([%~.~ %cthulhu ~] wir)
-        =^  cards  inner  (on-agent:eg wir sig)
+        =^  cards  inner  (on-agent:og wir sig)
         [cards this]
       ?-    -.sig
           %watch-ack
@@ -149,11 +157,12 @@
       ==
     ::
     ++  on-poke
-      ~&  >>  %please
       |=  [=mark =vase]
-      ~&  >  %cult
+      ~>  %bout.[0 '%cult +on-poke']
       ?.  ?=(%cult-dead mark)
-        (on-poke:eg mark vase)
+        =^  cards  inner
+          (on-poke:og mark vase)
+        [cards this]
       =/  calf=cow  !<(cow vase)
       ?-    -.calf
           %del
