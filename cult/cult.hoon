@@ -72,13 +72,16 @@
         now   (scot %da now.dish)
         our   (scot %p our.dish)
     ::
+    ++  on-peek   on-peek:og
+    ++  on-arvo   on-arvo:og
+    ++  on-fail   on-fail:og
+    ++  on-leave  on-leave:og
     ++  on-watch  on-watch:inner
     ++  on-init
       ^-  (quip card _this)
       =.  clique  club
       =.  ritual  babe
       =^  cards   inner  on-init:og
-      =^  cards   cargo  (gain:ho cards)
       [[hear:ho cards] this]
     ++  on-save  !>([[%cult cargo] on-save:og])
     ++  on-load
@@ -94,29 +97,48 @@
       =.  cargo   old
       =.  ritual  babe
       =^  cards   inner  (on-load:og oil)
-      =^  cards   cargo  (gain:ho cards)
       [[hear:ho cards] this]
     ++  on-agent
       |=  [wir=wire sig=sign:agent:gall]
       ?.  ?=([%~.~ %cthulhu ~] wir)
-        
-
+        =^  cards  inner  (on-agent:og wire sign)
+        [cards this]
+      ?-    -.sig
+          %watch-ack
+        [?~(p.sig ~ [hear:ho]~) this]
+      ::
+          %poke-ack
+        ~&  >>  [cult+dap.dish %unexpected-poke-ack wir]
+        `this
+      ::
+          %kick
+        [[hear:ho]~ this]
+      ::
+          %fact
+        =^  cards  cargo
+          (go-easy:go:ho cage.sig)
+        [cards this]
+      ==
+    ++  on-poke
+      |=  [=mark =vase]
+      ?.  ?=(%cult-dead mark)
+        (on-poke:og mark vase)
+      =/  calf=cow  !<(cow vase)
+      ?-    -.calf
+          %del  `this  ::  TODO: make functional
+          %add  `this  ::  TODO: make functional
+          %rem  `this  ::  TODO: make functional
+          %kik  `this  ::  TODO: make functional
+          %kil  `this  ::  TODO: make functional
+      ==
+    --
   ::
   ++  helps
     |_  [dish=bowl:gall cargo=cargo-0]
-    ++  gain
-      |=  car=(list card)
-      |^  ^-  (quip card _cargo)
-      =|  out=(list card)
-      |-
-      ?~  cards  [out cargo]
-      =^  caz  cargo  (honk i.car)
-      %(out (weld out caz), car t.car)
-      ++  honk
-      --
+    +*  dis  .
     ++  hear
-      :_  cargo
-      =-  [%pass /~/cthulhu %agent -]~
+      ^-  card
+      =-  [%pass /~/cthulhu %agent -]
       [[our dap.dish] [%watch /~/cult]]
     ::
     ::       +go - the groups engine
@@ -238,3 +260,5 @@
         --
       --
     __
+  --
+--
