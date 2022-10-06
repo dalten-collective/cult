@@ -9,7 +9,7 @@
 ::  using cult:
 ::  1. expect a subscription on `/~/cult` in your agent
 ::  2. call cult `%-  (agent:cult ~ ~)` as default case
-::  3. emit a cage of `[%cult-easy =easy]` on `/~/cult`
+::  3. emit a cage `[%cult-easy !>(easy)]` on `/~/cult`
 ::  4. user adds to `clique` with `cult-dead` mark poke
 ::  5. cult handles the rest, making or modifying group
 ::
@@ -18,23 +18,31 @@
 ::
 |%
 ::
-::  cargo objects
+::    cargo objects
+::  $clique - maps key to cult
+::  $ritual - elaborage change
+::  $relics - for failed cages
 ::
-+$  clique  (map * term)                     ::  maps key to cult
-+$  ritual  (map mark $-(vase (unit easy)))  ::  elaborate change
-+$  relics  (map @da cage)                   ::  for failed cages
++$  clique  (map * term)
++$  ritual  (map mark $-(vase (unit easy)))
++$  relics  (map @da cage)
 ::
-::  $cow - cult-dead mark
+::    $cow - cult-dead mark
+::  [%del *]       ::  removes a key from clique
+::  [%add * term]  ::  correlate noun and clique
 ::
 +$  cow
-  $%  [%del *]       ::  removes a key from clique fully
-      [%add * term]  ::  add a key and group into clique
-      [%rem * term]  ::  rem a key and group from clique
+  $%  [%del *]
+      [%add * term]
       skull
   ==
+::    $skull - $cow subset
+::  [%kik @da]     ::  reprocess relic, maybe new ritual
+::  [%kil @da]     ::  remove one relic from the chamber
+::
 +$  skull
-  $%  [%kik @da]     ::  reprocess relic with new ritual
-      [%kil @da]     ::  remove a relic from the chamber
+  $%  [%kik @da]
+      [%kil @da]
   ==
 ::
 ::  $diff - cult-easy mark
@@ -127,7 +135,6 @@
       ?-    -.calf
           %del  `this  ::  TODO: make functional
           %add  `this  ::  TODO: make functional
-          %rem  `this  ::  TODO: make functional
           %kik  `this  ::  TODO: make functional
           %kil  `this  ::  TODO: make functional
       ==
