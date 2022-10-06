@@ -11,11 +11,14 @@
 ::
 |%
 ::
-+$  easy  [* diff]                                      ::  low expectations
-+$  clique  (map * term)                                ::  maps key to cult
-+$  ritual  (map mark $-(vase (unit easy)))             ::  elaborate change
-+$  relics  (map @da cage)                              ::  for failed cages
+::  cargo objects
+::
++$  clique  (map * term)                     ::  maps key to cult
++$  ritual  (map mark $-(vase (unit easy)))  ::  elaborate change
++$  relics  (map @da cage)                   ::  for failed cages
+::
 ::  $cow - cult-dead mark
+::
 +$  cow
   $%  [%del *]       ::  removes a key from clique fully
       [%add * term]  ::  add a key and group into clique
@@ -25,22 +28,26 @@
   ==
 ::
 ::  $diff - cult-easy mark
+::
++$  easy  [* diff]       ::  lowered expectations
 +$  diff
-  $%  [%put (set ship)]       ::  induct new initiates
-      [%pop (set ship)]       ::  excommunication now!
-      [%pak (set ship)]       ::  only these initiates
+  $%  [%put (set ship)]  ::  induct new initiates
+      [%pop (set ship)]  ::  excommunication now!
+      [%pak (set ship)]  ::  only these initiates
   ==
 ::
 ::  +agent:cult - what's he up to?
 ::
 ++  agent
   |=  $:  
-::  +go - group engine
-::    +go-emit - add card to cards
-::    +go-emil - add list of cards
-::    +go-abet - and state changes
-::    +go-easy - bump-start engine
-::    +go-dick - inspect the group
+::       +go - the groups engine
+::  +go-emit - add card to cards
+::  +go-emil - add list of cards
+::  +go-abet - and state changes
+::  +go-dick - inspect the group
+::  +go-form - maybe form a cult
+::  +go-diff - handle easy diffs
+::  +go-easy - bump-start engine
 ++  go
   |_  $:  =flag:gup
           real=?
