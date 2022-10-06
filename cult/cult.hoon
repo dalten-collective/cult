@@ -14,11 +14,14 @@
 +$  easy  [* diff]                                      ::  low expectations
 +$  clique  (map * term)                                ::  maps key to cult
 +$  ritual  (map mark $-(vase (unit easy)))             ::  elaborate change
++$  relics  (map @da cage)                              ::  for failed cages
 ::  $cow - cult-dead mark
 +$  cow
   $%  [%del *]       ::  removes a key from clique fully
       [%add * term]  ::  add a key and group into clique
       [%rem * term]  ::  rem a key and group from clique
+      [%kik @da]     ::  reprocess relic with new ritual
+      [%kil @da]     ::  remove a relic from the chamber
   ==
 ::
 ::  $diff - cult-easy mark
@@ -35,8 +38,8 @@
 ::  +go - group engine
 ::    +go-emit - add card to cards
 ::    +go-emil - add list of cards
-::    +go-abet - no state changes!
-::    +go-abed - bump-start engine
+::    +go-abet - and state changes
+::    +go-easy - bump-start engine
 ::    +go-dick - inspect the group
 ++  go
   |_  $:  =flag:gup
@@ -55,14 +58,6 @@
   ++  go-abet
     ^-  (quip card _cargo)
     [(flop cards) cargo]
-  ::
-  ++  go-abed
-    |=  [t=term c=cage]
-    ^+  go
-    =~  go(flag [our t])
-        go-dick
-        go-form
-    ==
   ::
   ++  go-dick
     ^+  go
@@ -88,7 +83,7 @@
     ?:  real  go
     =;  cag=cage
       %-  go-emit
-      [%pass /gnosis %agent [our.dish %groups] cag]
+      [%pass /gnosis/[now] %agent [our.dish %groups] cag]
     :-  %group-create
     !>  ^-  create:gup
     :^  q.flag  'a cult'  'keep it secret, sorta'
@@ -107,26 +102,51 @@
         %put
       =;  cag=cage
         %-  go-emit
-        [%pass /gnosis %agent [our.dish %groups] cag]
+        [%pass /gnosis/[now] %agent [our.dish %groups] cag]
       :-  %group-action
       !>  ^-  action:gup
       :+  flag  now.dish
       [%cordon [%shut [%add-ships %pending +.div]]]
     ::
         %pop
-      =;  cag=cage
-        %-  go-emit
-        [%pass /gnosis %agent [our.dish %groups] cag]
+      =;  [cag=cage caz=cage]
+        %-  go-emil
+        :~  [%pass /gnosis/[now] %agent [our.dish %groups] cag]
+            [%pass /gnosis/[now] %agent [our.dish %groups] caz]
       =.  +.div  (~(del in +.div) )
+      :-
+        :-  %group-action
+        !>  ^-  action:gup
+        [flag [now.dish [%fleet +.div [%del ~]]]]
       :-  %group-action
       !>  ^-  action:gup
-      [flag [now.dish [%fleet +.div [%del ~]]]]
+      :+  flag  now.dish
+      [%cordon [%shut [%del-ships %pending +.div]]]
     ==
   ::
-  ++  go-rite
+  ++  go-easy
     |=  cag=cage
-    ^+  go
-    ?:  ?=(%cult-easy -.cage)
-      =/  dib=diff
-      
+    ^-  (quip card this)
+    |^
+    ?:  ?=(%cult-easy -.cag)
+      =+  ease=!<(easy +.cag)
+      (over ease)
+    ?~  fix=(~(get by ritual.cargo) -.cag)
+      =.  relics.cargo
+        (~(put by relics.cargo) now.dish cag)
+      go-abet
+    =+  hard=`easy`(fix +.cag)
+    (over hard)
+    ::
+    ++  over
+      |=  ease=easy
+      ?~  turn=(~(get by clique.cargo) -.ease)
+        go-abet
+      =~  go(term u.turn)
+          go-dick
+          go-form
+          (go-diff +.ease)
+          go-abet
+      ==
+    --
   --
