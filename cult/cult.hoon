@@ -17,7 +17,7 @@
 ::  6. cult handles the rest, making or modifying group
 ::
 /-  gup=groups
-/=  dbug  /cult/lib/dbug
+/+  verb, dbug
 ::
 |%
 ::
@@ -74,6 +74,7 @@
     =|  cargo-0
     =*  cargo  -
     %-  agent:dbug
+    %+  verb  &
     ^-  agent:gall
     |_  dish=bowl:gall
     +*  this  .
@@ -82,7 +83,16 @@
         now   (scot %da now.dish)
         our   (scot %p our.dish)
     ::
-    ++  on-peek   on-peek:og
+    ++  on-peek
+      |=  =path
+      ^-  (unit (unit cage))
+      ?.  =(/x/dbug/state path)
+        ~&  >>>  "doing that"
+        :: [(on-peek:og path)]
+        [~ ~]
+      ~&  >  "doing this"
+      :: ``noun+(slop on-save:og !>(cult=cargo))
+      [~ ~]
     ++  on-arvo   on-arvo:og
     ++  on-fail   on-fail:og
     ++  on-leave  on-leave:og
