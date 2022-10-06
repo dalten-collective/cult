@@ -29,7 +29,7 @@
 ::
 ::    $cow - cult-dead mark
 ::  [%del *]       ::  removes a key from clique
-::  [%add * term]  ::  correlate noun and clique
+::  [%add * term]  ::  correlates noun with term
 ::
 +$  cow
   $%  [%del *]
