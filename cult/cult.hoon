@@ -6,15 +6,19 @@
 ::
 ::  cult's state is called cargo.
 ::
-::  using cult:
-::  1. expect a subscription on `/~/cult` in your agent
-::  2. call cult `%-  (agent:cult ~ ~)` as default case
-::  3. emit a cage `[%cult-easy !>(easy)]` on `/~/cult`
-::  4. user adds to `clique` with `cult-dead` mark poke
-::  5. cult handles the rest, making or modifying group
+::    using cult:
+::  1. copy groups, meta from /cult/sur to /ur-desk/sur
+::  2. expect a subscription on `/~/cult` in your agent
+::  3. call cult `%-  (agent:cult ~ ~)` as default case
+::    - alternatively, call agent:cult with a club babe
+::  4. emit a cage `[%cult-easy !>(easy)]` on `/~/cult`
+::    - alternatively, use native facts that babe knows
+::  5. user adds to `clique` with `cult-dead` mark poke
+::  6. cult handles the rest, making or modifying group
 ::
-/+  verb, dbug
-/=  gup  /cult/sur/groups
+/-  gup   groups
+/+  verb
+/=  dbug  /cult/lib/dbug
 ::
 |%
 ::
