@@ -57,7 +57,7 @@
     [(flop cards) cargo]
   ::
   ++  go-abed
-    |=  t=term
+    |=  [t=term c=cage]
     ^+  go
     =~  go(flag [our t])
         go-dick
@@ -120,11 +120,13 @@
       =.  +.div  (~(del in +.div) )
       :-  %group-action
       !>  ^-  action:gup
-      flag  [now.dish [%cordon [%shut [%add-ships +.div]]]]
+      [flag [now.dish [%fleet +.div [%del ~]]]]
     ==
   ::
   ++  go-rite
     |=  cag=cage
+    ^+  go
     ?:  ?=(%cult-easy -.cage)
+      =/  dib=diff
       
   --
