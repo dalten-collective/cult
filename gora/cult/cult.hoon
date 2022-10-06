@@ -16,7 +16,7 @@
 ::  5. user adds to `clique` with `cult-dead` mark poke
 ::  6. cult handles the rest, making or modifying group
 ::
-/-  gup=groups
+/-  gup   groups
 /+  verb
 /=  dbug  /cult/lib/dbug
 ::
