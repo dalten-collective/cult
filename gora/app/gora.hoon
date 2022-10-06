@@ -552,7 +552,7 @@
     !>  ^-  easy:cult
     ?-    -.gor
         %g
-      [id.gor [%pak (hodl.gor)]]
+      [id.gor [%pak hodl.gor]]
     ::
         %s
       [id.gor [%pak ~(key by stak.gor)]]
@@ -1581,11 +1581,12 @@
       ::  CULT: modified for cult                       ::  cult
       ::
       =;  [cards=(list card) state=_state]
-        =+  hodl=hodl:(~(got by pita) id.u.gor)
+        =+  gor=(~(got by pita) id.u.gor)
+        =+  hodl=?>(?=(%g -.gor) hodl.gor)
         :_  state
         :_  cards
         =-  [%give %fact ~[/~/cult] %cult-easy -]
-        !>(`easy:cult`[id.u.gor [%pak hodl]])
+        !>(`easy:cult`[id.gor [%pak hodl]])
       ::
       ?~  max.u.gor
         =/  pat=path
@@ -1636,11 +1637,12 @@
       ::  CULT: modified for cult                       ::  cult
       ::
       =;  [cards=(list card) state=_state]
-        =+  hodl=~(key by stak:(~(got by pita) id.u.gor))
+        =+  gor=(~(got by pita) id.u.gor)
+        =+  hodl=?>(?=(%s -.gor) ~(key by stak.gor))
         :_  state
         :_  cards
         =-  [%give %fact ~[/~/cult] %cult-easy -]
-        !>(`easy:cult`[id.u.gor [%pak hodl]])
+        !>(`easy:cult`[id.gor [%pak hodl]])
       ::
       =/  sats=@ud
         ?~  had=(~(get by stak.u.gor) ship.man)
@@ -1671,11 +1673,12 @@
       ::  CULT: modified for cult                       ::  cult
       ::
       =;  [cards=(list card) state=_state]
-        =+  hodl=hodl:(~(got by pita) id.u.gor)
+        =+  gor=(~(got by pita) id.u.gor)
+        =+  hodl=?>(?=(%g -.gor) hodl.gor)
         :_  state
         :_  cards
         =-  [%give %fact ~[/~/cult] %cult-easy -]
-        !>(`easy:cult`[id.u.gor [%pak hodl]])
+        !>(`easy:cult`[id.gor [%pak hodl]])
       ::
       =;  [offers=(list card) legs=_outgoing.logs]
         :_  state(outgoing.logs legs)
@@ -1704,11 +1707,12 @@
       ::  CULT: modified for cult                       ::  cult
       ::
       =;  [cards=(list card) state=_state]
-        =+  hodl=~(key by stak:(~(got by pita) id.u.gor))
+        =+  gor=(~(got by pita) id.u.gor)
+        =+  hodl=?>(?=(%s -.gor) ~(key by stak.gor))
         :_  state
         :_  cards
         =-  [%give %fact ~[/~/cult] %cult-easy -]
-        !>(`easy:cult`[id.u.gor [%pak hodl]])
+        !>(`easy:cult`[id.gor [%pak hodl]])
       ::
       =;  [offers=(list card) stik=stak legs=_outgoing.logs]
         :-  :_  offers

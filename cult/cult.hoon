@@ -17,7 +17,6 @@
 ::  6. cult handles the rest, making or modifying group
 ::
 /-  gup=groups
-/+  verb
 /=  dbug  /cult/lib/dbug
 ::
 |%
@@ -74,7 +73,6 @@
     |=  inner=agent:gall
     =|  cargo-0
     =*  cargo  -
-    %+  verb   &
     %-  agent:dbug
     ^-  agent:gall
     |_  dish=bowl:gall
@@ -103,7 +101,6 @@
         =.  clique  club
         =.  ritual  babe
         =^  cards   inner  (on-load:og ole)
-        =^  cards   cargo  (gain:ho cards)
         [[hear:ho cards] this]
       =+  !<([[%cult old=cargo-0] oil=vase] ole)
       =.  cargo   old
@@ -113,7 +110,7 @@
     ++  on-agent
       |=  [wir=wire sig=sign:agent:gall]
       ?.  ?=([%~.~ %cthulhu ~] wir)
-        =^  cards  inner  (on-agent:og wire sign)
+        =^  cards  inner  (on-agent:og wir sig)
         [cards this]
       ?-    -.sig
           %watch-ack
@@ -150,7 +147,7 @@
     ++  hear
       ^-  card
       =-  [%pass /~/cthulhu %agent -]
-      [[our dap.dish] [%watch /~/cult]]
+      [[our.dish dap.dish] [%watch /~/cult]]
     ::       +go - roll ur own cults
     ::
     ::  +go-emit - add card to cards
@@ -165,16 +162,16 @@
       |_  $:  =flag:gup
               real=?
               door=(unit cordon:gup)
-              mass=(set ship)
+              team=(set ship)
               cards=(list card)
           ==
       +*  now  (scot %da now.dish)
           our  (scot %p our.dish)
           go   .
       ::
-      ++  go-emit  |=(=card dat(cards [card cards]))
+      ++  go-emit  |=(=card go(cards [card cards]))
       ++  go-emil
-        |=(lac=(list card) dat(cards (welp lac cards)))
+        |=(lac=(list card) go(cards (welp lac cards)))
       ++  go-abet
         ^-  (quip card _cargo)
         [(flop cards) cargo]
@@ -188,14 +185,14 @@
           ==
         ?~  gup=(~(get by gups) flag)
           go(real %.n, door ~)
-        ~|  [%bad-group-state flag cordon.group.u.gup]
-        ?>  ?=(%shut -.cordon.group.u.gup)
+        ~|  [%bad-group-state flag cordon.u.gup]
+        ?>  ?=(%shut -.cordon.u.gup)
         %=    go
           real  %.y
-          door  `cordon.group.u.gup
+          door  `cordon.u.gup
         ::
-            mass
-          (~(del in ~(key by fleet.group.u.gup)) our.dish)
+            team
+          (~(del in ~(key by fleet.u.gup)) our.dish)
         ==
       ::
       ++  go-form
@@ -203,50 +200,53 @@
         ?:  real  go
         =;  cag=cage
           %-  go-emit
-          [%pass /gnosis/[now] %agent [our.dish %groups] cag]
+          [%pass /gnosis/[now] %agent [our.dish %groups] %poke cag]
         :-  %group-create
         !>  ^-  create:gup
         :^  q.flag  'a cult'  'keep it secret, sorta'
         :^  'https://bit.ly/3Czi3GK'  '#ffd966'  [%shut ~ ~]
-        (~(put ju *(jug ship term)) our %admin)
+        (~(put ju *(jug ship term)) our.dish %admin)
       ::
       ++  go-diff
-        |=  div=diff
+        |=  d=diff
         ^+  go
-        ?-    -.div
+        ?-    -.d
             %pak
-          =~  (go-diff [%pop (~(dif in mass) +.div)])
-              (go-diff [%put (~(dif in +.div) mass)])
-          ==
+          =+  pip=(~(dif in team) +.d)
+          =+  pit=(~(dif in +.d) team)
+          =+  ge=(go-diff [%pop pip])
+          (go-diff:ge [%put pit])
         ::
             %put
           =;  cag=cage
             %-  go-emit
-            [%pass /gnosis/[now] %agent [our.dish %groups] cag]
+            [%pass /gnosis/[now] %agent [our.dish %groups] %poke cag]
+          =.  +.d  (~(del in +.d) our.dish)
           :-  %group-action
           !>  ^-  action:gup
           :+  flag  now.dish
-          [%cordon [%shut [%add-ships %pending +.div]]]
+          [%cordon [%shut [%add-ships %pending +.d]]]
         ::
             %pop
           =;  [cag=cage caz=cage]
             %-  go-emil
-            :~  [%pass /gnosis/[now] %agent [our.dish %groups] cag]
-                [%pass /gnosis/[now] %agent [our.dish %groups] caz]
-          =.  +.div  (~(del in +.div) )
+            :~  [%pass /gnosis/[now] %agent [our.dish %groups] %poke cag]
+                [%pass /gnosis/[now] %agent [our.dish %groups] %poke caz]
+            ==
+          =.  +.d  (~(del in +.d) our.dish)
           :-
             :-  %group-action
             !>  ^-  action:gup
-            [flag [now.dish [%fleet +.div [%del ~]]]]
+            [flag [now.dish [%fleet +.d [%del ~]]]]
           :-  %group-action
           !>  ^-  action:gup
           :+  flag  now.dish
-          [%cordon [%shut [%del-ships %pending +.div]]]
+          [%cordon [%shut [%del-ships %pending +.d]]]
         ==
       ::
       ++  go-easy
         |=  cag=cage
-        ^-  (quip card this)
+        ^-  (quip card _cargo)
         |^
         ?:  ?=(%cult-easy -.cag)
           =+  ease=!<(easy +.cag)
@@ -255,17 +255,20 @@
           =.  relics.cargo
             (~(put by relics.cargo) now.dish cag)
           go-abet
-        =+  hard=`easy`(fix +.cag)
-        (over hard)
+        =+  hard=`(unit easy)`(u.fix +.cag)
+        ?~  hard  go-abet
+        (over u.hard)
         ::
         ++  over
           |=  ease=easy
           ?~  turn=(~(get by clique.cargo) -.ease)
             go-abet
-          =~  go(term u.turn)
-              go-dick
-              go-form
-              (go-diff +.ease)
+          =/  ge=_go
+            =~  go(flag [our.dish u.turn])
+                go-dick
+                go-form
+            ==
+          =~  (go-diff:ge +.ease)
               go-abet
           ==
         --
