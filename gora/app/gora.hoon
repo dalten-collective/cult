@@ -549,12 +549,13 @@
     |=  gor=gora
     ?.  =(our.bowl host.gor)  ~
     =-  `[%give %fact ~ %cult-easy -]
+    !>  ^-  easy:cult
     ?-    -.gor
         %g
-      !>(`easy:cult`[id.gor [%pak (hodl.gor)]])
+      [id.gor [%pak (hodl.gor)]]
     ::
         %s
-      !>(`easy:cult`[id.gor [%pak ~(key by stak.gor)]])
+      [id.gor [%pak ~(key by stak.gor)]]
     ==
   ::
   ?:  =(/~/gossip/source path)

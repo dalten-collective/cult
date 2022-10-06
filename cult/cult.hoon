@@ -151,8 +151,7 @@
       ^-  card
       =-  [%pass /~/cthulhu %agent -]
       [[our dap.dish] [%watch /~/cult]]
-    ::
-    ::       +go - the groups engine
+    ::       +go - roll ur own cults
     ::
     ::  +go-emit - add card to cards
     ::  +go-emil - add list of cards
@@ -160,7 +159,8 @@
     ::  +go-dick - inspect the group
     ::  +go-form - maybe form a cult
     ::  +go-diff - handle easy diffs
-    ::  +go-easy - hand-crank engine
+    ::  +go-easy - start cult engine
+    ::
     ++  go
       |_  $:  =flag:gup
               real=?
@@ -270,6 +270,6 @@
           ==
         --
       --
-    __
+    --
   --
 --
