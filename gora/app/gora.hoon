@@ -422,7 +422,6 @@
           %offered
         :: =;  neu=(quip card _state)                      ::  json -sail-removes
         ::   [[((diff:j-web:hc state) +.neu) -.neu] +.neu] ::
-        ~&  >  "offered a gora"
         ?:  ?&  (~(has by pita) id.gora.tan)
                 =(our.bol host.gora.tan)
             ::
@@ -461,7 +460,6 @@
             ==
           ==
         ?>  =(host.gora.tan src.bowl)
-        ~&  >  "working for host"
         ?-   -.gora.tan
             %g
           =-  [(gora:subs:hc pita.-) -]
@@ -488,7 +486,6 @@
           ::
               pita
             ?^  nul.gora.tan
-              ~&  >>>  (~(put by (rm-nul:shim:hc u.nul.gora.tan)) [id.gora.tan gora.tan])
               %-  ~(put by (rm-nul:shim:hc u.nul.gora.tan))
               [id.gora.tan gora.tan]
             ?~  go=(~(get by pita) id.gora.tan)
@@ -688,7 +685,6 @@
             ?=(%fact -.sign)
             =(%gora p.cage.sign)
         ==
-      ~&  >  %receiving-gossip
       =+  !<([wat=@uv who=@p] q.cage.sign)
       ?:  (~(has by pita) wat)  `this
       =/  pat=path
@@ -1794,7 +1790,6 @@
         (~(got by pita) id.gal)
       :-  ?.  &(=(our.bol host.gor) =(%.y how.gal))
             ~
-          ~&  >  %sending-fact-invent
           [(invent:gossip %gora !>([id.gor our.bol]))]~
       %=    state
           public

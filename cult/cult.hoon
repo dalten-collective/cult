@@ -7,14 +7,18 @@
 ::  cult's state is called cargo.
 ::
 ::    using cult:
-::  1. copy groups, meta from /cult/sur to /ur-desk/sur
-::  2. expect a subscription on `/~/cult` in your agent
-::  3. call cult `%-  (agent:cult ~ ~)` as default case
-::    - alternatively, call agent:cult with a club babe
-::  4. emit a cage `[%cult-easy !>(easy)]` on `/~/cult`
-::    - alternatively, use native facts that babe knows
-::  5. user adds to `clique` with `cult-dead` mark poke
-::  6. cult handles the rest, making or modifying group
+::  1.  copy /cult/lib, ../sur to your desk's /lib, /sur
+::  2.  import cult in agent with `/=  cult  /cult/cult`
+::  3.  expect a subscription on `/~/cult` in your agent
+::  4.  call cult `%-  (agent:cult ~ ~)` as default case
+::    -  alternatively, call agent:cult with a club babe
+::  5.  emit a cage `[%cult-easy !>(easy)]` on `/~/cult`
+::    -  alternatively, use native facts that babe knows
+::  6.  user adds to `clique` with `cult-dead` mark poke
+::    -  alternatively, see our /cult/mar/cult/dead.hoon
+::  7.  cult handles the rest, making or modifying group
+::
+::  need help? join ~mister-hilper-dozzod-dalten/quartus
 ::
 /-  gup=groups
 /+  verb
@@ -57,7 +61,7 @@
       [%pak (set ship)]  ::  only these initiates
   ==
 ::
-::  +agent:cult - what's he up to?
+::  +agent:cult - what's he up to? he looks weird
 ::
 ++  agent
   |=  $:  club=clique    ::  just a social club
@@ -73,7 +77,7 @@
     |=  inner=agent:gall
     =|  cargo-0
     =*  cargo  -
-    %+  verb  &
+    %+  verb  |
     ^-  agent:gall
     |_  dish=bowl:gall
     +*  this  .
@@ -85,14 +89,14 @@
     ++  on-peek
       |=  =path
       ^-  (unit (unit cage))
-      ~>  %bout.[0 '%cult +on-peek']
+      ::  ~>  %bout.[0 '%cult +on-peek']
       ?:  =(/x/~/cult/state path)
         ``noun+!>(cargo)
       (on-peek:og path)
     ++  on-arvo
       |=  [wire sign-arvo]
       ^-  (quip card _this)
-      ~>  %bout.[0 '%cult +on-arvo']
+      ::  ~>  %bout.[0 '%cult +on-arvo']
       =^  cards  inner  (on-arvo:og +<)
       [cards this]
     ++  on-fail
@@ -113,7 +117,7 @@
       [cards this]
     ::
     ++  on-init
-      ~>  %bout.[0 '%cult +on-init']
+      ::  ~>  %bout.[0 '%cult +on-init']
       ^-  (quip card _this)
       =.  clique  (~(uni by clique) club)
       =.  ritual  (~(uni by ritual) babe)
@@ -122,7 +126,7 @@
     ++  on-save  !>([[%cult cargo] on-save:og])
     ++  on-load
       |=  ole=vase
-      ~>  %bout.[0 '%cult +on-load']
+      ::  ~>  %bout.[0 '%cult +on-load']
       ^-  (quip card _this)
       ?.  ?=([[%cult *] *] q.ole)
         =.  clique  club
@@ -158,7 +162,7 @@
     ::
     ++  on-poke
       |=  [=mark =vase]
-      ~>  %bout.[0 '%cult +on-poke']
+      ::  ~>  %bout.[0 '%cult +on-poke']
       ?.  ?=(%cult-dead mark)
         =^  cards  inner
           (on-poke:og mark vase)
