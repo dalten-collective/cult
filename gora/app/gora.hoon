@@ -40,7 +40,7 @@
 ::    -  TBD
 ::
 /-  *gora
-/+  default-agent, dbug, rudder, gossip
+/+  default-agent, rudder, gossip
 ::  CULT: added for cult                                ::  cult
 ::
 /=  cult   /cult/cult
@@ -360,6 +360,16 @@
             (~(put by policy) id.tan %decline)            
           =/  pat=path
             /gora/(scot %uv id.u.gor)
+          ::  CULT: modified for cult                   ::  cult
+          ::
+          =;  [cards=(list card) state=_state]
+            =+  gor=(~(got by pita) id.u.gor)
+            =+  hodl=?>(?=(%g -.gor) hodl.gor)
+            :_  state
+            :_  cards
+            =-  [%give %fact ~[/~/cult] %cult-easy -]
+            !>(`easy:cult`[id.gor [%pak hodl]])
+          ::
           =-  [[((diff:j-web:hc ole) +.-) -.-] +.-]
           :_  state
           =-  [%give %fact ~[pat] %gora-transact-2 -]~
@@ -388,6 +398,16 @@
             (~(del ju requests.logs) src.bowl id.u.gor)
           =/  pat=path
             /gora/(scot %uv id.u.gor)
+          ::  CULT: modified for cult                   ::  cult
+          ::
+          =;  [cards=(list card) state=_state]
+            =+  gor=(~(got by pita) id.u.gor)
+            =+  hodl=?>(?=(%s -.gor) ~(key by stak.gor))
+            :_  state
+            :_  cards
+            =-  [%give %fact ~[/~/cult] %cult-easy -]
+            !>(`easy:cult`[id.gor [%pak hodl]])
+          ::
           =-  [[((diff:j-web:hc ole) +.-) -.-] +.-]
           :_  state
           =-  [%give %fact ~[pat] %gora-transact-2 -]~
@@ -816,8 +836,6 @@
   |=  =path
   ^-  (unit (unit cage))
   ?+    path  (on-peek:def path)
-      [%x %dbug ~]
-    ``noun+!>(gora=state)
       [%y %slam ~]
     =-  ``noun+!>(`(list [@t @t @p])`-)
     %-  ~(rep by pita)

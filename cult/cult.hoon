@@ -215,11 +215,8 @@
       ::
       ++  go-dick
         ^+  go
-        =/  gups=(map flag:gup [net:gup group:gup])
-          .^    (map flag:gup [net:gup group:gup])
-              %gx
-            /[now]/groups/[our]/noun
-          ==
+        =/  gups=groups:gup
+          .^(groups:gup %gx /[our]/groups/[now]/groups/noun)
         ?~  gup=(~(get by gups) flag)
           go(real %.n, door ~)
         ~|  [%bad-group-state flag cordon.u.gup]
@@ -249,10 +246,25 @@
         ^+  go
         ?-    -.d
             %pak
-          =+  pip=(~(dif in team) +.d)
-          =+  pit=(~(dif in +.d) team)
-          =+  ge=(go-diff [%pop pip])
-          (go-diff:ge [%put pit])
+          =;  punch=$-(action:gup card)
+            =+  pip=`(set ship)`(~(dif in team) +.d)
+            =+  pit=`(set ship)`(~(dif in +.d) team)
+            %-  go-emil
+            :~
+              %-  punch
+              :+  flag  now.dish
+              [%cordon [%shut [%add-ships %pending pit]]]
+            ::
+              %-  punch
+              :+  flag  now.dish
+              [%cordon [%shut [%del-ships %pending pip]]]
+            ::
+              %-  punch
+              [flag [now.dish [%fleet pip [%del ~]]]]
+            ==
+          |=  a=action:gup
+          :^  %pass  /gnosis/[now]  %agent
+          [[our.dish %groups] %poke %group-action !>(a)]
         ::
             %put
           =;  cag=cage
@@ -285,8 +297,8 @@
         |=  cag=cage
         ^-  (quip card _cargo)
         |^
-        ?:  ?=(%cult-easy -.cag)
-          =+  ease=!<(easy +.cag)
+        ?:  ?=(%cult-easy p.cag)
+          =+  ease=!<(easy q.cag)
           (over ease)
         ?~  fix=(~(get by ritual.cargo) -.cag)
           =.  relics.cargo
