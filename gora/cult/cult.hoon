@@ -1,10 +1,12 @@
 ::  cult - make a murder cult, the easy way.
 ::  by quartus
 ::
-::  rituals are for those with elaborate rites
-::  for a cut and dry cult use %cult-easy mark
+::  v.0.1.0
 ::
 ::  cult's state is called cargo.
+::
+::  rituals are for those with elaborate rites
+::  for a cut and dry cult use %cult-easy mark
 ::
 ::    using cult:
 ::  1.  copy /cult/lib, ../sur to your desk's /lib, /sur
@@ -33,32 +35,36 @@
 +$  clique  (map * term)
 +$  ritual  (map mark $-(vase (unit easy)))
 +$  relics  (map @da cage)
++$  augury  (unit $-(* json))
 ::
 ::    $cow - cult-dead mark
 ::  [%del *]       ::  removes a key from clique
 ::  [%add * term]  ::  correlates noun with term
+::
+::    $skull - $cows subset
+::  [%kik @da]     ::  reprocess relic, maybe new ritual
+::  [%kil @da]     ::  remove one relic from the chamber
 ::
 +$  cow
   $%  [%del *]
       [%add * term]
       skull
   ==
-::    $skull - $cow subset
-::  [%kik @da]     ::  reprocess relic, maybe new ritual
-::  [%kil @da]     ::  remove one relic from the chamber
 ::
 +$  skull
   $%  [%kik @da]
       [%kil @da]
   ==
 ::
-::  $diff - cult-easy mark
+::    $easy - use cult-easy
+::  $diff - how to treat em
 ::
-+$  easy  [* diff]       ::  lowered expectations
++$  easy  [* diff]       ::  the key! induct them
+::
 +$  diff
   $%  [%put (set ship)]  ::  induct new initiates
-      [%pop (set ship)]  ::  excommunication now!
       [%pak (set ship)]  ::  only these initiates
+      [%pop (set ship)]  ::  excommunication now!
   ==
 ::
 ::  +agent:cult - what's he up to? he looks weird
@@ -66,6 +72,7 @@
 ++  agent
   |=  $:  club=clique    ::  just a social club
           babe=ritual    ::  a babe-lon working
+          crow=augury    ::  divine divinations
       ==
   ^-  $-(agent:gall agent:gall)
   |^  agent
@@ -171,11 +178,13 @@
       ?-    -.calf
           %del
         ~&  [%cult-remove +.calf]
-        `this(clique (~(del by clique) +.calf))
+        :_  this(clique (~(del by clique) +.calf))
+        ?~(crow ~ (~(del omen:ho u.crow) +.calf))
       ::
           %add
         ~&  [%cult-form +>.calf %for +<.calf]
-        `this(clique (~(put by clique) +.calf))
+        :_  this(clique (~(put by clique) +.calf))
+        ?~(crow ~ (~(add omen:ho u.crow) +.calf))
       ::
           %kik  `this  ::  TODO: make functional
           %kil  `this  ::  TODO: make functional
@@ -189,6 +198,20 @@
       ^-  card
       =-  [%pass /~/cthulhu %agent -]
       [[our.dish dap.dish] [%watch /~/cult]]
+    ++  omen
+      =,  enjs:format
+      |_  lock=$-(* json)
+      ++  del
+        |=  key=*
+        =-  [%give %fact [/~/augury]~ json+!>(-)]~
+        (frond del+(frond key+(lock key)))
+      ++  add
+        |=  [key=* vault=@tas]
+        =-  [%give %fact [/~/augury]~ json+!>(-)]~
+        %+  frond  %add
+        %-  pairs
+        ~[key+(lock key) vault+s/(scot %tas vault)]
+      --
     ::       +go - roll ur own cults
     ::
     ::  +go-emit - add card to cards
@@ -216,6 +239,36 @@
       ++  go-abet
         ^-  (quip card _cargo)
         [(flop cards) cargo]
+      ::
+      ++  go-easy
+        |=  egg=cage
+        ^-  (quip card _cargo)
+        |^
+        ?:  ?=(%cult-easy p.egg)
+          =+  ease=!<(easy q.egg)
+          (over ease)
+        ?~  fix=(~(get by ritual.cargo) p.egg)
+          =.  relics.cargo
+            (~(put by relics.cargo) now.dish egg)
+          go-abet
+        =+  hard=`(unit easy)`(u.fix q.egg)
+        ?~  hard  go-abet
+        (over u.hard)
+        ::
+        ++  over
+          |=  ease=easy
+          ?~  turn=(~(get by clique.cargo) -.ease)
+            go-abet
+          =~
+            :-  ease=`_ease`ease
+            =~  go(flag [our.dish u.turn])
+                go-dick
+                go-form
+            ==
+            (go-diff +.ease)
+            go-abet
+          ==
+        --
       ::
       ++  go-dick
         ^+  go
@@ -296,35 +349,6 @@
           :+  flag  now.dish
           [%cordon [%shut [%del-ships %pending +.d]]]
         ==
-      ::
-      ++  go-easy
-        |=  cag=cage
-        ^-  (quip card _cargo)
-        |^
-        ?:  ?=(%cult-easy p.cag)
-          =+  ease=!<(easy q.cag)
-          (over ease)
-        ?~  fix=(~(get by ritual.cargo) -.cag)
-          =.  relics.cargo
-            (~(put by relics.cargo) now.dish cag)
-          go-abet
-        =+  hard=`(unit easy)`(u.fix +.cag)
-        ?~  hard  go-abet
-        (over u.hard)
-        ::
-        ++  over
-          |=  ease=easy
-          ?~  turn=(~(get by clique.cargo) -.ease)
-            go-abet
-          =/  ge=_go
-            =~  go(flag [our.dish u.turn])
-                go-dick
-                go-form
-            ==
-          =~  (go-diff:ge +.ease)
-              go-abet
-          ==
-        --
       --
     --
   --
