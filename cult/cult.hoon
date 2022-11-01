@@ -120,6 +120,9 @@
     ++  on-watch
       |=  path
       ^-  (quip card _this)
+      ?:  ?=([%~.~ %augury ~] +<)
+        ?~  crow  `this
+        [~(all omen:ho u.crow) this]
       =^  cards  inner  (on-watch:og +<)
       [cards this]
     ::
@@ -211,6 +214,14 @@
         %+  frond  %add
         %-  pairs
         ~[key+(lock key) vault+s/(scot %tas vault)]
+      ++  all
+      =-  [%give %fact [/~/augury]~ json+!>(-)]~
+      %+  frond  %set
+      :-  %a
+      %+  turn  ~(tap by clique.cargo)
+      |=  [kex=* vault=term]
+      %-  pairs
+      ~[key+(lock kex) vault+s/(scot %tas vault)]
       --
     ::       +go - roll ur own cults
     ::
