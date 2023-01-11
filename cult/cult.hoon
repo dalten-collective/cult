@@ -312,8 +312,8 @@
         :*  q.flag
             'a cult'
             'keep it secret, sorta'
-            'https://bit.ly/3Czi3GK'
-            [(shaw eny.dish 25 our.dish) [%shut ~ ~] ~ %|]
+            'https://freedom-club.sfo2.digitaloceanspaces.com/props/quartus/long-logo/ab_Quartus-05_only.png'
+            ['#bb2649' [%shut ~ ~] ~ %|]
         ==
       ::
       ++  go-diff
