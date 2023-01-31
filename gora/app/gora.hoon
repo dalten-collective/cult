@@ -2,7 +2,7 @@
 ::  
 ::    %gora now utilizes the following middleware:
 ::   - %gossip - by ~paldev
-::   - %cult - by quartus
+::   - %cult - by quartusco
 ::
 ::  %gora - a proof of presence protocol (sail version)
 ::    by quartus and the dalten collective
@@ -290,14 +290,14 @@
           ~            `[%page & %pita]                 ::  main pita
           [%$ ~]       `[%away /apps/gora]              ::  main pita
           [%index ~]   `[%away (snip site.trail)]       ::  main pita
-          [%asked ~]   `[%page & %asked]                ::  she asked
+          [%asked ~]   `[%page & %asked]                ::  they want
           [%plead ~]   `[%page & %plead]                ::  begs them
           [%maker ~]   `[%page & %maker]                ::  make gora
           [%voyer ~]   `[%page & %voyer]                ::  blaq sofa
           [%tiket ~]   `[%page & %tiket]                ::  your logs
           [%stakm ~]   `[%page & %stakm]                ::  burn pile
-          [%stakd ~]   `[%page & %stakd]                ::  the ashes
-          [%public ~]  `[%page | %poser]                ::  my public
+          [%stakd ~]   `[%page & %stakd]                ::  they live
+          [%public ~]  `[%page | %poser]                ::  show them
         ==
       ::
         |=  =order:rudder
