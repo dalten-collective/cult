@@ -34,6 +34,7 @@
 ::
 +$  clique  (map * term)
 +$  ritual  (map mark $-(vase (unit easy)))
++$  retire  (map mark *)
 +$  relics  (map @da cage)
 +$  augury  (unit $-(* json))
 ::
@@ -78,11 +79,13 @@
   |^  agent
   ::
   +$  card     card:agent:gall
-  +$  cargo-0  [%0 =clique =ritual =relics]
+  +$  versioned-cargo  $%(cargo-0 cargo-1)
+  +$  cargo-0  [%0 =clique ritual=retire =relics]
+  +$  cargo-1  [%1 =clique =relics]
   ::
   ++  agent
     |=  inner=agent:gall
-    =|  cargo-0
+    =|  cargo-1
     =*  cargo  -
     %+  verb  |
     ^-  agent:gall
@@ -120,6 +123,9 @@
     ++  on-watch
       |=  path
       ^-  (quip card _this)
+      ?:  ?=([%~.~ %augury ~] +<)
+        ?~  crow  `this
+        [~(all omen:ho u.crow) this]
       =^  cards  inner  (on-watch:og +<)
       [cards this]
     ::
@@ -127,7 +133,6 @@
       ::  ~>  %bout.[0 '%cult +on-init']
       ^-  (quip card _this)
       =.  clique  (~(uni by clique) club)
-      =.  ritual  (~(uni by ritual) babe)
       =^  cards   inner  on-init:og
       [[hear:ho cards] this]
     ++  on-save  !>([[%cult cargo] on-save:og])
@@ -137,14 +142,19 @@
       ^-  (quip card _this)
       ?.  ?=([[%cult *] *] q.ole)
         =.  clique  club
-        =.  ritual  babe
         =^  cards   inner  (on-load:og ole)
         [[hear:ho cards] this]
-      =+  !<([[%cult old=cargo-0] oil=vase] ole)
-      =.  cargo   old
-      =.  ritual  babe
-      =^  cards   inner  (on-load:og oil)
-      [[hear:ho cards] this]
+      =+  !<([[%cult old=versioned-cargo] oil=vase] ole)
+      ?-    -.old
+          %0
+        =.  cargo  [clique relics]:old
+        =^  cards  inner  (on-load:og oil)
+        [[hear:ho cards] this]
+          %1
+        =.  cargo  old
+        =^  cards  inner  (on-load:og oil)
+        [[hear:ho cards] this]
+      ==
     ++  on-agent
       |=  [wir=wire sig=sign:agent:gall]
       ?.  ?=([%~.~ %cthulhu ~] wir)
@@ -192,7 +202,7 @@
     --
   ::
   ++  helps
-    |_  [dish=bowl:gall cargo=cargo-0]
+    |_  [dish=bowl:gall cargo=cargo-1]
     +*  dis  .
     ++  hear
       ^-  card
@@ -211,6 +221,14 @@
         %+  frond  %add
         %-  pairs
         ~[key+(lock key) vault+s/(scot %tas vault)]
+      ++  all
+      =-  [%give %fact [/~/augury]~ json+!>(-)]~
+      %+  frond  %set
+      :-  %a
+      %+  turn  ~(tap by clique.cargo)
+      |=  [kex=* vault=term]
+      %-  pairs
+      ~[key+(lock kex) vault+s/(scot %tas vault)]
       --
     ::       +go - roll ur own cults
     ::
@@ -227,6 +245,7 @@
               real=?
               door=(unit cordon:gup)
               team=(set ship)
+              cord=[pend=(set ship) act=(set ship)]
               cards=(list card)
           ==
       +*  now  (scot %da now.dish)
@@ -247,7 +266,7 @@
         ?:  ?=(%cult-easy p.egg)
           =+  ease=!<(easy q.egg)
           (over ease)
-        ?~  fix=(~(get by ritual.cargo) p.egg)
+        ?~  fix=(~(get by babe) p.egg)
           =.  relics.cargo
             (~(put by relics.cargo) now.dish egg)
           go-abet
@@ -284,6 +303,9 @@
         ::
             team
           (~(del in ~(key by fleet.u.gup)) our.dish)
+        ::
+            cord
+          [pend.cordon.u.gup ask.cordon.u.gup]
         ==
       ::
       ++  go-form
@@ -294,9 +316,12 @@
           [%pass /gnosis/[now] %agent [our.dish %groups] %poke cag]
         :-  %group-create
         !>  ^-  create:gup
-        :^  q.flag  'a cult'  'keep it secret, sorta'
-        :^  'https://bit.ly/3Czi3GK'  '#ffd966'  [%shut ~ ~]
-        (~(put ju *(jug ship term)) our.dish %admin)
+        :*  q.flag
+            'a cult'
+            'keep it secret, sorta'
+            'https://freedom-club.sfo2.digitaloceanspaces.com/props/quartus/long-logo/ab_Quartus-05_only.png'
+            ['#bb2649' [%shut ~ ~] ~ %|]
+        ==
       ::
       ++  go-diff
         |=  d=diff
@@ -304,21 +329,35 @@
         ?-    -.d
             %pak
           =;  punch=$-(action:gup card)
-            =+  pip=`(set ship)`(~(dif in team) +.d)
-            =+  pit=`(set ship)`(~(dif in +.d) team)
+            =/  pip=(set ship)  (~(dif in team) +.d)    ::  ships to kick
+            =/  pil=(set ship)                          ::  pends to cancel
+              (~(dif in pend.cord) +.d)
+            =/  pit=(set ship)                          ::  invites to send
+              %.  (sy ~[our.dish])
+              ~(dif in (~(dif in +.d) team))
+            =|  caz=(list card)
             %-  go-emil
-            :~
+            =?    caz
+                ?=(^ pit)
+              :_  caz
               %-  punch
+              ^-  action:gup
               :+  flag  now.dish
               [%cordon [%shut [%add-ships %pending pit]]]
-            ::
+            =?    caz
+                ?=(^ pil)
+              :_  caz
               %-  punch
+              ^-  action:gup
               :+  flag  now.dish
-              [%cordon [%shut [%del-ships %pending pip]]]
-            ::
+              [%cordon [%shut [%del-ships %pending pil]]]
+            =?    caz
+                ?=(^ pip)
+              :_  caz
               %-  punch
+              ^-  action:gup
               [flag [now.dish [%fleet pip [%del ~]]]]
-            ==
+            caz
           |=  a=action:gup
           :^  %pass  /gnosis/[now]  %agent
           [[our.dish %groups] %poke %group-action !>(a)]

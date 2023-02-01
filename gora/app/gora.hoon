@@ -2,7 +2,7 @@
 ::  
 ::    %gora now utilizes the following middleware:
 ::   - %gossip - by ~paldev
-::   - %cult - by quartus
+::   - %cult - by quartusco
 ::
 ::  %gora - a proof of presence protocol (sail version)
 ::    by quartus and the dalten collective
@@ -143,7 +143,7 @@
 ::
 ++  on-init
   ^-  (quip card _this)
-  %-  (slog leaf+"%gora -sail-start" ~)
+  %-  (slog leaf+"%gora -vue-start" ~)
   :_  this(state [%2 ~ ~ ~ [~ ~ ~] ~ ~])
   :~  =-  [%pass /eyre/connect %arvo %e -]
       [%connect [[~ [%apps %gora ~]] dap.bowl]]
@@ -163,17 +163,17 @@
   =/  old=versioned-state  !<(versioned-state ole)
   =/  cards=(list card)
       :~  =-  [%pass /eyre/connect %arvo %e -]
-          [%disconnect [~ [%apps %gora %public ~]]]
+          [%disconnect [~ [%apps %gora ~]]]
         ::
           =-  [%pass /eyre/connect %arvo %e -]
-          [%connect [[~ [%apps %gora ~]] dap.bowl]]  
+          [%connect [[~ [%apps %gora %public ~]] dap.bowl]]  
       ==
   =^  caz  old
     ?:(?=(%0 -.old) (from-0 old) [~ old])
   =^  coz  old
     ?:(?=(%1 -.old) (from-1 old) [~ old])
   ?>  ?=(%2 -.old)
-  %-  (slog leaf+"%gora -sail-loaded" ~)
+  %-  (slog leaf+"%gora -vue-loaded" ~)
   :_  this(state old)
   :(welp coz caz cards (gora:subs:hc pita.old))
   ::
@@ -290,14 +290,14 @@
           ~            `[%page & %pita]                 ::  main pita
           [%$ ~]       `[%away /apps/gora]              ::  main pita
           [%index ~]   `[%away (snip site.trail)]       ::  main pita
-          [%asked ~]   `[%page & %asked]                ::  she asked
+          [%asked ~]   `[%page & %asked]                ::  they want
           [%plead ~]   `[%page & %plead]                ::  begs them
           [%maker ~]   `[%page & %maker]                ::  make gora
           [%voyer ~]   `[%page & %voyer]                ::  blaq sofa
           [%tiket ~]   `[%page & %tiket]                ::  your logs
           [%stakm ~]   `[%page & %stakm]                ::  burn pile
-          [%stakd ~]   `[%page & %stakd]                ::  the ashes
-          [%public ~]  `[%page | %poser]                ::  my public
+          [%stakd ~]   `[%page & %stakd]                ::  they live
+          [%public ~]  `[%page | %poser]                ::  show them
         ==
       ::
         |=  =order:rudder
@@ -422,8 +422,8 @@
       ::  - run the sub function to sub to the gora
       ::
           %offered
-        :: =;  neu=(quip card _state)                      ::  json -sail-removes
-        ::   [[((diff:j-web:hc state) +.neu) -.neu] +.neu] ::
+        =;  neu=(quip card _state)                      ::  json -sail-removes
+          [[((diff:j-web:hc state) +.neu) -.neu] +.neu] ::
         ?:  ?&  (~(has by pita) id.gora.tan)
                 =(our.bol host.gora.tan)
             ::
@@ -498,8 +498,8 @@
         ==
       ::
           %request
-        :: =;  neu=(quip card _state)                      ::  json -sail-removes
-        ::   [[((diff:j-web:hc state) +.neu) -.neu] +.neu] ::
+        =;  neu=(quip card _state)                      ::  json -sail-removes
+          [[((diff:j-web:hc state) +.neu) -.neu] +.neu] ::
         ?~  gor=(~(get by pita) id.tan)  !!
         ?>  =(our.bowl host.u.gor)
         =/  pat=path
@@ -699,9 +699,9 @@
     [%pass wire %agent [src.bowl %gora] %leave ~]~
   ::
       [%allow @ @ ~]
-    :: =;  neu=(quip card _this)                           ::  json -sail-removes
-    ::     :_  +.neu                                       ::
-    ::     [((diff:j-web:hc state) state.+.neu) -.neu]     ::
+    =;  neu=(quip card _this)                           ::  json -sail-removes
+        :_  +.neu                                       ::
+        [((diff:j-web:hc state) state.+.neu) -.neu]     ::
     =/  id=@uv   (slav %uv i.t.wire)
     =/  hu=ship  (slav %p i.t.t.wire)
     ?.  ?=(%poke-ack -.sign)  (on-agent:def wire sign)
@@ -715,9 +715,9 @@
     ==
   ::
       [%offer @ @ ~]
-    :: =;  neu=(quip card _this)                           ::  json -sail-removes
-    ::     :_  +.neu                                       ::
-    ::     [((diff:j-web:hc state) state.+.neu) -.neu]     ::
+    =;  neu=(quip card _this)                           ::  json -sail-removes
+        :_  +.neu                                       ::
+        [((diff:j-web:hc state) state.+.neu) -.neu]     ::
     =/  id=@uv   (slav %uv i.t.wire)
     =/  hu=ship  (slav %p i.t.t.wire)
     ?.  ?=(%poke-ack -.sign)  (on-agent:def wire sign)
@@ -731,9 +731,9 @@
     ==
   ::
       [%plead @ @ ~]
-    :: =;  neu=(quip card _this)                           ::  json -sail-removes
-    ::     :_  +.neu                                       ::
-    ::     [((diff:j-web:hc state) state.+.neu) -.neu]     ::
+    =;  neu=(quip card _this)                           ::  json -sail-removes
+        :_  +.neu                                       ::
+        [((diff:j-web:hc state) state.+.neu) -.neu]     ::
     =/  id=@uv   (slav %uv i.t.wire)
     =/  hu=ship  (slav %p i.t.t.wire)
     ?.  ?=(%poke-ack -.sign)  (on-agent:def wire sign)
@@ -747,9 +747,9 @@
     ==
   ::
       [%gora @ @ ~]
-    :: =;  neu=(quip card _this)                           ::  json -sail-removes
-    ::     :_  +.neu                                       ::
-    ::     [((diff:j-web:hc state) state.+.neu) -.neu]     ::
+    =;  neu=(quip card _this)                           ::  json -sail-removes
+        :_  +.neu                                       ::
+        [((diff:j-web:hc state) state.+.neu) -.neu]     ::
     =/  ud=@uv   (slav %uv i.t.wire)
     =/  ho=ship  (slav %p i.t.t.wire)
     ?~  gor=(~(get by pita) ud)
@@ -1387,8 +1387,8 @@
 ::
 ++  transact
   |=  [=diff =id =wire gor=(unit gora)]
-  :: =;  neu=(quip card _state)                            ::  json -sail-removes
-  ::   [[((diff:j-web state) +.neu) -.neu] +.neu]          ::
+  =;  neu=(quip card _state)                            ::  json -sail-removes
+    [[((diff:j-web state) +.neu) -.neu] +.neu]          ::
   ^-  (quip card _state)
   ?-    -.diff
       %illustrate
@@ -1515,8 +1515,8 @@
 ::
 ++  manage
   |=  man=manage-gora-2
-  :: =;  neu=(quip card _state)                            ::  json -sail-removes
-  ::   [[((diff:j-web state) +.neu) -.neu] +.neu]          ::
+  =;  neu=(quip card _state)                            ::  json -sail-removes
+    [[((diff:j-web state) +.neu) -.neu] +.neu]          ::
   |^  ^-  (quip card _state)
   ?-    -.man
       $?  %rm-gora
